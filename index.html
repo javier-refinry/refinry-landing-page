@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>refinry -Clean Data. Clear Decisions.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #0B1D3A;
+    --navy-light: #132B54;
+    --navy-mid: #1A3A6E;
+    --teal: #00B4A0;
+    --teal-dark: #009E8C;
+    --teal-light: #E0F7F4;
+    --gray-50: #F8FAFB;
+    --gray-100: #EEF1F5;
+    --gray-200: #D8DDE6;
+    --gray-400: #8A94A6;
+    --gray-600: #4A5568;
+    --gray-800: #1A202C;
+    --white: #FFFFFF;
+    --shadow-sm: 0 1px 3px rgba(11,29,58,0.08);
+    --shadow-md: 0 4px 16px rgba(11,29,58,0.10);
+    --shadow-lg: 0 8px 32px rgba(11,29,58,0.12);
+    --radius: 12px;
+    --transition: 0.25s ease;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--gray-800);
+    line-height: 1.6;
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- UTILITY ---- */
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; border-radius: 8px; font-weight: 600;
+    font-size: 1rem; text-decoration: none; cursor: pointer;
+    transition: all var(--transition); border: none; font-family: inherit;
+  }
+  .btn-primary { background: var(--teal); color: var(--white); }
+  .btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-outline { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.4); }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+  .btn-navy { background: var(--navy); color: var(--white); }
+  .btn-navy:hover { background: var(--navy-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .section-label {
+    display: inline-block; font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .section-title { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+  .section-sub { font-size: 1.1rem; color: var(--gray-600); max-width: 640px; line-height: 1.7; }
+  .text-center { text-align: center; }
+
+  /* ---- NAV ---- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(11,29,58,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .nav-logo {
+    font-size: 1.35rem; font-weight: 800; color: var(--white);
+    text-decoration: none; display: flex; align-items: center; gap: 0;
+  }
+  .nav-logo span { color: var(--teal); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem;
+    font-weight: 500; transition: color var(--transition);
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta { display: flex; align-items: center; }
+  .nav-cta .btn { padding: 10px 24px; font-size: 0.9rem; }
+  .hamburger {
+    display: none; background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px; background: var(--white);
+    margin: 5px 0; transition: all 0.3s;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    background: linear-gradient(165deg, var(--navy) 0%, var(--navy-light) 50%, var(--navy-mid) 100%);
+    padding: 160px 0 100px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -40%; right: -20%;
+    width: 800px; height: 800px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,180,160,0.08) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -30%; left: -10%;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,180,160,0.05) 0%, transparent 70%);
+  }
+  .hero-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    align-items: center; position: relative; z-index: 1;
+  }
+  .hero-content h1 {
+    font-size: clamp(2.2rem, 5vw, 3.25rem); font-weight: 800;
+    color: var(--white); line-height: 1.15; margin-bottom: 24px;
+  }
+  .hero-content h1 em {
+    font-style: normal; color: var(--teal);
+    background: linear-gradient(135deg, var(--teal), #4EDBC8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-content p {
+    font-size: 1.15rem; color: rgba(255,255,255,0.7); line-height: 1.7;
+    margin-bottom: 36px; max-width: 520px;
+  }
+  .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+  .hero-visual {
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-graphic {
+    width: 100%; max-width: 460px; aspect-ratio: 1;
+    background: rgba(255,255,255,0.03); border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.06); position: relative;
+    display: grid; place-items: center;
+  }
+  .hero-graphic .ring {
+    position: absolute; border-radius: 50%;
+    border: 1.5px solid rgba(0,180,160,0.15);
+    animation: pulse 6s ease-in-out infinite;
+  }
+  .ring-1 { width: 60%; height: 60%; animation-delay: 0s; }
+  .ring-2 { width: 78%; height: 78%; animation-delay: 1s; }
+  .ring-3 { width: 96%; height: 96%; animation-delay: 2s; }
+  .hero-graphic .center-icon {
+    width: 80px; height: 80px; border-radius: 20px;
+    background: linear-gradient(135deg, var(--teal), #4EDBC8);
+    display: grid; place-items: center; z-index: 1;
+    box-shadow: 0 8px 32px rgba(0,180,160,0.3);
+  }
+  .center-icon svg { width: 40px; height: 40px; }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.03); }
+  }
+
+  /* ---- PROBLEM ---- */
+  .problem { padding: 100px 0; background: var(--white); }
+  .problem-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    margin-top: 48px;
+  }
+  .pain-card {
+    padding: 32px; border-radius: var(--radius); background: var(--gray-50);
+    border: 1px solid var(--gray-100); transition: all var(--transition);
+  }
+  .pain-card:hover { border-color: var(--teal); box-shadow: var(--shadow-md); }
+  .pain-icon {
+    width: 48px; height: 48px; border-radius: 12px; margin-bottom: 16px;
+    background: rgba(0,180,160,0.1); display: grid; place-items: center;
+  }
+  .pain-icon svg { width: 24px; height: 24px; stroke: var(--teal); }
+  .pain-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+  .pain-card p { color: var(--gray-600); font-size: 0.95rem; }
+
+  /* ---- WHO WE HELP ---- */
+  .verticals { padding: 100px 0; background: var(--gray-50); }
+  .verticals-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    margin-top: 48px;
+  }
+  .vertical-card {
+    background: var(--white); border-radius: var(--radius);
+    border: 1px solid var(--gray-200); overflow: hidden;
+    transition: all var(--transition);
+  }
+  .vertical-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+  .vertical-header {
+    padding: 32px 32px 0; display: flex; align-items: center; gap: 16px;
+  }
+  .vertical-badge {
+    width: 52px; height: 52px; border-radius: 14px; display: grid;
+    place-items: center; flex-shrink: 0;
+  }
+  .vertical-badge svg { width: 26px; height: 26px; }
+  .badge-agency { background: rgba(0,180,160,0.1); }
+  .badge-agency svg { stroke: var(--teal); }
+  .badge-mfg { background: rgba(11,29,58,0.08); }
+  .badge-mfg svg { stroke: var(--navy); }
+  .vertical-header div h3 { font-size: 1.2rem; font-weight: 700; }
+  .vertical-header div p { font-size: 0.85rem; color: var(--gray-400); font-weight: 500; }
+  .vertical-body { padding: 24px 32px 32px; }
+  .vertical-body p { color: var(--gray-600); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.7; }
+  .vertical-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .vertical-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    color: var(--gray-600); font-size: 0.93rem;
+  }
+  .vertical-list li::before {
+    content: ''; width: 20px; height: 20px; flex-shrink: 0;
+    border-radius: 50%; margin-top: 2px;
+    background: rgba(0,180,160,0.12);
+    display: grid; place-items: center;
+  }
+  .check-icon { color: var(--teal); font-weight: 700; font-size: 0.75rem; }
+
+  /* ---- SERVICES ---- */
+  .services { padding: 100px 0; background: var(--white); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    margin-top: 48px;
+  }
+  .service-card {
+    padding: 32px 24px; border-radius: var(--radius);
+    background: var(--white); border: 1px solid var(--gray-200);
+    transition: all var(--transition); position: relative;
+  }
+  .service-card:hover { border-color: var(--teal); box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+  .service-num {
+    font-size: 0.75rem; font-weight: 700; color: var(--teal);
+    letter-spacing: 0.05em; margin-bottom: 16px;
+  }
+  .service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
+  .service-card p { color: var(--gray-600); font-size: 0.9rem; line-height: 1.6; }
+
+  /* ---- HOW IT WORKS ---- */
+  .process { padding: 100px 0; background: var(--navy); color: var(--white); }
+  .process .section-label { color: var(--teal); }
+  .process .section-title { color: var(--white); }
+  .process .section-sub { color: rgba(255,255,255,0.6); }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    margin-top: 56px; position: relative;
+  }
+  .process-steps::before {
+    content: ''; position: absolute; top: 36px; left: 10%; right: 10%;
+    height: 2px; background: linear-gradient(90deg, transparent, rgba(0,180,160,0.3), transparent);
+  }
+  .step {
+    text-align: center; position: relative;
+  }
+  .step-number {
+    width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 20px;
+    background: rgba(0,180,160,0.12); border: 2px solid rgba(0,180,160,0.3);
+    display: grid; place-items: center;
+    font-size: 1.5rem; font-weight: 800; color: var(--teal);
+  }
+  .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+  .step p { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+  /* ---- FAQ ---- */
+  .faq { padding: 100px 0; background: var(--white); }
+  .faq-list { max-width: 720px; margin: 48px auto 0; }
+  .faq-item {
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .faq-question {
+    width: 100%; background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 0; font-family: inherit;
+    font-size: 1rem; font-weight: 600; color: var(--gray-800);
+    text-align: left; transition: color var(--transition);
+  }
+  .faq-question:hover { color: var(--teal); }
+  .faq-chevron {
+    width: 20px; height: 20px; flex-shrink: 0; transition: transform 0.3s;
+  }
+  .faq-item.active .faq-chevron { transform: rotate(180deg); }
+  .faq-answer {
+    max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+  }
+  .faq-answer-inner {
+    padding: 0 0 20px;
+    color: var(--gray-600); font-size: 0.95rem; line-height: 1.7;
+  }
+
+  /* ---- CTA BANNER ---- */
+  .cta-banner {
+    padding: 80px 0; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-banner::before {
+    content: ''; position: absolute; top: -50%; right: -20%;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,180,160,0.1), transparent 70%);
+  }
+  .cta-banner h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800;
+    color: var(--white); margin-bottom: 16px; position: relative; z-index: 1;
+  }
+  .cta-banner p {
+    color: rgba(255,255,255,0.65); font-size: 1.1rem; margin-bottom: 36px;
+    max-width: 560px; margin-left: auto; margin-right: auto;
+    position: relative; z-index: 1;
+  }
+  .cta-banner .btn { position: relative; z-index: 1; }
+
+  /* ---- FOOTER ---- */
+  .footer { padding: 56px 0 32px; background: var(--navy); border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 24px;
+  }
+  .footer-logo { font-size: 1.1rem; font-weight: 700; color: var(--white); }
+  .footer-logo span { color: var(--teal); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a {
+    color: rgba(255,255,255,0.5); font-size: 0.85rem;
+    text-decoration: none; transition: color var(--transition);
+  }
+  .footer-links a:hover { color: var(--white); }
+  .footer-copy {
+    width: 100%; text-align: center; padding-top: 32px;
+    margin-top: 32px; border-top: 1px solid rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.35); font-size: 0.8rem;
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 1024px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .process-steps { grid-template-columns: repeat(2, 1fr); }
+    .process-steps::before { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: block; }
+    .nav-links.open {
+      display: flex; flex-direction: column; position: absolute;
+      top: 72px; left: 0; right: 0; background: var(--navy);
+      padding: 24px; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-cta.open {
+      display: flex; position: absolute; top: 72px; right: 24px;
+      padding-top: 24px;
+    }
+    .hero { padding: 130px 0 80px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+    .hero-content p { margin-left: auto; margin-right: auto; }
+    .hero-buttons { justify-content: center; }
+    .hero-visual { display: none; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .verticals-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; gap: 40px; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">refin<span>ry</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#problem">The Problem</a></li>
+      <li><a href="#verticals">Who We Help</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">How It Works</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta" id="navCta">
+      <a href="https://calendly.com/javier-refinry/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:10px 24px;font-size:0.9rem;">Book a Free Assessment</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <h1>Your data is <em>holding you back.</em><br>We fix that.</h1>
+      <p>Before you invest in a new CRM, ERP, or reporting platform -make sure the data going in is actually clean. refinry gets your systems, records, and processes ready for what's next.</p>
+      <div class="hero-buttons">
+        <a href="https://calendly.com/javier-refinry/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a Free Assessment</a>
+        <a href="#services" class="btn btn-outline">See Our Services</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-graphic">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <div class="center-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20V10"/><path d="M6 20V4"/><path d="M18 20v-6"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROBLEM ===== -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">The Problem</span>
+      <h2 class="section-title">Bad data costs more than you think</h2>
+      <p class="section-sub" style="margin:0 auto;">Duplicate records, broken integrations, and spreadsheet chaos silently drain your team's time and tank the ROI on every system you invest in.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M17 21v-2a4 4 0 0 0-4-4"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Duplicate & Conflicting Records</h3>
+        <p>The same contact lives in your CRM three times with three different spellings. Reports can't be trusted because the source data is a mess.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+        </div>
+        <h3>Spreadsheet Dependency</h3>
+        <p>Critical business data lives in spreadsheets that only one person understands. Every decision starts with "let me pull the numbers" and an hour of copy-pasting.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3>Manual Processes Everywhere</h3>
+        <p>Your team re-enters the same data across three systems. Automations either don't exist or broke six months ago and nobody noticed.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h3>Failed Implementations</h3>
+        <p>You invested in a new platform, but it's full of the same garbage data from the old one. The ROI never materialized because nobody cleaned up first.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHO WE HELP ===== -->
+<section class="verticals" id="verticals">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Who We Help</span>
+      <h2 class="section-title">Two industries. One common problem.</h2>
+      <p class="section-sub" style="margin:0 auto;">Whether you're running campaigns or running a production floor, messy data is costing you real money.</p>
+    </div>
+    <div class="verticals-grid">
+      <!-- Agency Card -->
+      <div class="vertical-card">
+        <div class="vertical-header">
+          <div class="vertical-badge badge-agency">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div>
+            <h3>Marketers</h3>
+          </div>
+        </div>
+        <div class="vertical-body">
+          <p>Your CRM is bloated, your lead data is unreliable, and reporting to clients feels like guesswork. You need someone to untangle the mess before you can scale.</p>
+          <ul class="vertical-list">
+            <li><span class="check-icon">&#10003;</span> CRM deduplication and contact cleanup</li>
+            <li><span class="check-icon">&#10003;</span> CRM property and pipeline optimization</li>
+            <li><span class="check-icon">&#10003;</span> Marketing attribution reporting that works</li>
+            <li><span class="check-icon">&#10003;</span> Lead scoring and lifecycle stage fixes</li>
+            <li><span class="check-icon">&#10003;</span> Client reporting dashboards you can trust</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Manufacturing Card -->
+      <div class="vertical-card">
+        <div class="vertical-header">
+          <div class="vertical-badge badge-mfg">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8l5 4V6l5 4V4l5 4v12"/></svg>
+          </div>
+          <div>
+            <h3>Manufacturers</h3>
+          </div>
+        </div>
+        <div class="vertical-body">
+          <p>Your operations run on tribal knowledge and spreadsheets. You're considering an ERP or MRP, but your underlying data isn't ready for it -and you know it.</p>
+          <ul class="vertical-list">
+            <li><span class="check-icon">&#10003;</span> BOMs, inventory, and part number standardization</li>
+            <li><span class="check-icon">&#10003;</span> Pre-ERP/MRP data preparation and cleanup</li>
+            <li><span class="check-icon">&#10003;</span> Production reporting and KPI dashboards</li>
+            <li><span class="check-icon">&#10003;</span> Spreadsheet-to-system migration</li>
+            <li><span class="check-icon">&#10003;</span> Process documentation and workflow automation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">What We Do</span>
+      <h2 class="section-title">Four ways we get your data right</h2>
+      <p class="section-sub" style="margin:0 auto;">From one-time cleanups to ongoing support, we meet you wherever the mess is.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <h3>Data Integrity Reset</h3>
+        <p>We clean up duplicates, fix broken fields, standardize naming conventions, and deduplicate contacts and accounts so your data actually means something.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <h3>Reporting Foundation Setup</h3>
+        <p>We build dashboards and reports grounded in clean data -so you can finally make decisions based on reality instead of gut feelings and guesswork.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <h3>Systems &amp; Automation Buildout</h3>
+        <p>We connect your tools, automate manual processes, and eliminate spreadsheet workflows that waste your team's time every single week.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <h3>Ongoing Support</h3>
+        <p>A monthly retainer for continued data hygiene and system optimization. Because data gets messy again -we make sure it doesn't.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-title">From chaos to clarity in four steps</h2>
+      <p class="section-sub" style="margin:0 auto;">No bloated SOWs. No six-month timelines. We move fast and show results early.</p>
+    </div>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Free Data Health Assessment</h3>
+        <p>We audit your current systems, data quality, and processes to find where the biggest problems -and quickest wins -are hiding.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Prioritized Action Plan</h3>
+        <p>You get a clear, plain-English roadmap ranked by impact. No jargon, no fluff -just what to fix first and why it matters.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Hands-On Execution</h3>
+        <p>We roll up our sleeves and do the work. Cleanup, integrations, dashboards -built and tested in your actual systems.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <h3>Handoff &amp; Ongoing Support</h3>
+        <p>Your team gets trained, documentation is delivered, and we stick around on retainer if you want to keep things tight.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Common questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How long does a typical data cleanup take?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">It depends on the scope, but most Data Integrity Resets wrap up in 4–8 weeks. We start showing results within the first two weeks so you're not waiting around wondering if anything's happening.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Do we need to switch platforms or buy new software?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Nope. We work with whatever you already have -HubSpot, Salesforce, QuickBooks, Excel, ERP systems, you name it. The goal is to make your current tools work better, not to sell you new ones.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What's a "Data Health Assessment" and is it really free?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes, it's genuinely free with no strings attached. We'll look at your current systems, identify the biggest data quality issues, and give you a prioritized list of recommendations. You walk away with actionable insights whether you hire us or not.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          We're planning an ERP/MRP rollout. When should we engage refinry?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Before you sign the contract. Seriously. Cleaning and standardizing your data before an implementation can cut timelines by 30–50% and dramatically reduce the risk of a failed rollout. We're the pre-implementation cleanup crew.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How is refinry different from an IT consulting firm?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">We're specialists, not generalists. We focus exclusively on data quality, reporting, and process automation for mid-market companies. We don't build apps, manage networks, or do IT support. We just make sure your data and business systems actually work.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What does ongoing support look like?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Think of it as a monthly data and systems health check. We monitor data quality, fix issues before they compound, tune automations, and handle ad hoc requests. Most clients start with a cleanup engagement and then move to a retainer because they don't want to go back to the old way.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="cta-banner" id="cta">
+  <div class="container">
+    <h2>Ready to stop fighting your data?</h2>
+    <p>Book a free Data Health Assessment and find out exactly where your biggest wins are hiding.</p>
+    <a href="https://calendly.com/javier-refinry/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size:1.1rem;padding:16px 40px;">Book a Free Assessment</a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">refin<span>ry</span></div>
+      <ul class="footer-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#verticals">Industries</a></li>
+        <li><a href="#process">How It Works</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+      <div class="footer-copy">&copy; 2026 refinry. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  const navCta = document.getElementById('navCta');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    navCta.classList.toggle('open');
+  });
+
+  // Close mobile menu on link click
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navCta.classList.remove('open');
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = item.classList.contains('active');
+
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('active');
+        i.querySelector('.faq-answer').style.maxHeight = null;
+        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+
+      // Open clicked if it was closed
+      if (!isOpen) {
+        item.classList.add('active');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        const navHeight = document.querySelector('.nav').offsetHeight;
+        const targetPos = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+        window.scrollTo({ top: targetPos, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
