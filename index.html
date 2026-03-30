@@ -160,6 +160,23 @@
 
   /* ---- PROBLEM ---- */
   .problem { padding: 100px 0; background: var(--white); }
+  .foundation {
+    padding: 88px 0;
+    background: var(--white);
+    border-top: 1px solid var(--gray-100);
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .foundation-copy {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .foundation-copy p {
+    color: var(--gray-600);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 18px;
+  }
+  .foundation-copy p:last-child { margin-bottom: 0; }
   .problem-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
     margin-top: 48px;
@@ -388,8 +405,8 @@
 <section class="hero">
   <div class="container hero-inner">
     <div class="hero-content">
-      <h1>Your data is <em>holding you back.</em><br>We fix that.</h1>
-      <p>Before you invest in a new CRM, ERP, or reporting platform -make sure the data going in is actually clean. refinry gets your systems, records, and processes ready for what's next.</p>
+      <h1>Your systems aren't <em>broken.</em><br>Your data is.</h1>
+      <p>Before you invest in a new CRM, ERP, or reporting platform, fix the data underneath it. We clean and structure messy operational data so everything actually works.</p>
       <div class="hero-buttons">
         <a href="https://calendly.com/javier-refinry/30min" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a Free Assessment</a>
         <a href="#services" class="btn btn-outline">See Our Services</a>
@@ -410,13 +427,25 @@
   </div>
 </section>
 
+<!-- ===== FOUNDATION ===== -->
+<section class="foundation" id="foundation">
+  <div class="container">
+    <div class="text-center foundation-copy">
+      <span class="section-label">Why Most Systems Fail</span>
+      <h2 class="section-title">Most problems start before the system does</h2>
+      <p>Most companies invest in new systems before fixing their data. That's why implementations fail, reporting breaks, and teams fall back to spreadsheets.</p>
+      <p>We clean and structure messy operational data so your systems, workflows, and reporting actually work.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ===== PROBLEM ===== -->
 <section class="problem" id="problem">
   <div class="container">
     <div class="text-center">
       <span class="section-label">The Problem</span>
       <h2 class="section-title">Bad data costs more than you think</h2>
-      <p class="section-sub" style="margin:0 auto;">Duplicate records, broken integrations, and spreadsheet chaos silently drain your team's time and tank the ROI on every system you invest in.</p>
+      <p class="section-sub" style="margin:0 auto;">Duplicate records, broken integrations, and spreadsheet chaos silently drain your team's time and make every system harder to trust.</p>
     </div>
     <div class="problem-grid">
       <div class="pain-card">
@@ -471,13 +500,13 @@
           </div>
         </div>
         <div class="vertical-body">
-          <p>Your CRM is bloated, your lead data is unreliable, and reporting to clients feels like guesswork. You need someone to untangle the mess before you can scale.</p>
+          <p>Your CRM is bloated, your lead data is unreliable, and your team keeps working around broken records. You need the data cleaned up before your systems and processes can work the way they should.</p>
           <ul class="vertical-list">
             <li><span class="check-icon">&#10003;</span> CRM deduplication and contact cleanup</li>
-            <li><span class="check-icon">&#10003;</span> CRM property and pipeline optimization</li>
-            <li><span class="check-icon">&#10003;</span> Marketing attribution reporting that works</li>
-            <li><span class="check-icon">&#10003;</span> Lead scoring and lifecycle stage fixes</li>
-            <li><span class="check-icon">&#10003;</span> Client reporting dashboards you can trust</li>
+            <li><span class="check-icon">&#10003;</span> CRM property and pipeline cleanup</li>
+            <li><span class="check-icon">&#10003;</span> Lead source and lifecycle field standardization</li>
+            <li><span class="check-icon">&#10003;</span> Spreadsheet cleanup before migration or handoff</li>
+            <li><span class="check-icon">&#10003;</span> Workflow fixes between forms, CRM, and ops</li>
           </ul>
         </div>
       </div>
@@ -496,7 +525,7 @@
           <ul class="vertical-list">
             <li><span class="check-icon">&#10003;</span> BOMs, inventory, and part number standardization</li>
             <li><span class="check-icon">&#10003;</span> Pre-ERP/MRP data preparation and cleanup</li>
-            <li><span class="check-icon">&#10003;</span> Production reporting and KPI dashboards</li>
+            <li><span class="check-icon">&#10003;</span> Quoting workflow cleanup and standardization</li>
             <li><span class="check-icon">&#10003;</span> Spreadsheet-to-system migration</li>
             <li><span class="check-icon">&#10003;</span> Process documentation and workflow automation</li>
           </ul>
@@ -511,8 +540,8 @@
   <div class="container">
     <div class="text-center">
       <span class="section-label">What We Do</span>
-      <h2 class="section-title">Four ways we get your data right</h2>
-      <p class="section-sub" style="margin:0 auto;">From one-time cleanups to ongoing support, we meet you wherever the mess is.</p>
+      <h2 class="section-title">Four ways we make messy data usable</h2>
+      <p class="section-sub" style="margin:0 auto;">We clean and structure messy operational data so your systems, workflows, and reporting actually work.</p>
     </div>
     <div class="services-grid">
       <div class="service-card">
@@ -522,18 +551,18 @@
       </div>
       <div class="service-card">
         <div class="service-num">02</div>
-        <h3>Reporting Foundation Setup</h3>
-        <p>We build dashboards and reports grounded in clean data -so you can finally make decisions based on reality instead of gut feelings and guesswork.</p>
+        <h3>Make Your Data Usable</h3>
+        <p>We structure and standardize your data so it can actually be used across your systems. No more conflicting records, broken joins, or reports that don't make sense.</p>
       </div>
       <div class="service-card">
         <div class="service-num">03</div>
-        <h3>Systems &amp; Automation Buildout</h3>
-        <p>We connect your tools, automate manual processes, and eliminate spreadsheet workflows that waste your team's time every single week.</p>
+        <h3>Workflow Cleanup &amp; Simplification</h3>
+        <p>We clean up the messy processes and spreadsheet dependencies between your systems. Your team spends less time fixing data and more time using it.</p>
       </div>
       <div class="service-card">
         <div class="service-num">04</div>
-        <h3>Ongoing Support</h3>
-        <p>A monthly retainer for continued data hygiene and system optimization. Because data gets messy again -we make sure it doesn't.</p>
+        <h3>Ongoing Data Hygiene</h3>
+        <p>A monthly retainer for continued data hygiene and cleanup support. Because data gets messy again -we make sure it stays clean, consistent, and usable.</p>
       </div>
     </div>
   </div>
@@ -561,11 +590,11 @@
       <div class="step">
         <div class="step-number">3</div>
         <h3>Hands-On Execution</h3>
-        <p>We roll up our sleeves and do the work. Cleanup, integrations, dashboards -built and tested in your actual systems.</p>
+        <p>We roll up our sleeves and do the work. Cleanup, standardization, and workflow fixes -built and tested in your actual systems.</p>
       </div>
       <div class="step">
         <div class="step-number">4</div>
-        <h3>Handoff &amp; Ongoing Support</h3>
+        <h3>Handoff &amp; Ongoing Data Hygiene</h3>
         <p>Your team gets trained, documentation is delivered, and we stick around on retainer if you want to keep things tight.</p>
       </div>
     </div>
@@ -604,7 +633,7 @@
           <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner">Yes, it's genuinely free with no strings attached. We'll look at your current systems, identify the biggest data quality issues, and give you a prioritized list of recommendations. You walk away with actionable insights whether you hire us or not.</div>
+          <div class="faq-answer-inner">Yes, it's genuinely free with no strings attached. We'll look at your current systems, identify the biggest data quality issues, and give you a prioritized list of recommendations. You walk away with clear next steps whether you hire us or not.</div>
         </div>
       </div>
       <div class="faq-item">
@@ -627,7 +656,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
-          What does ongoing support look like?
+          What does ongoing data hygiene look like?
           <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-answer">
